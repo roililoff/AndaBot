@@ -1,7 +1,5 @@
-const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
-	data: new SlashCommandBuilder()
 		.setName('avatar')
 		.setDescription('Give avatar url')
     .addUserOption(option =>
