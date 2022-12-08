@@ -1,19 +1,16 @@
-const Discord = require('discord.js')
- 
+const { SlashCommandBuilder } = require('discord.js');
+
 module.exports = {
-    run: message => {
-        message.channel.send(new Discord.MessageEmbed()
-            .setTitle('y title')
-            .setTitle(':bird: Avatar')
-            .setDescription('New Avatar')
-            .setColor('RED')
-            .addField(':lock: Avatar »', 'Please put picture in chat, You dont have the permit')
-            .setAuthor('')
-            .setImage('')
-            .setThumbnail('')
-            .setFooter('AndaBot .avatar » .help')
-            .setTimestamp()
-            .setURL(''))
-    },
-    name: 'avatar'
-}
+	data: new SlashCommandBuilder()
+		.setName('avatar')
+		.setDescription('Give avatar url')
+    .addUserOption(option =>
+		option.setName('mention')
+			.setDescription('He dont have url avatar')
+    ),
+	async execute(interaction) {
+        const mention = interaction.options.getUser('mention');
+		if(!mention) return await interaction.reply(`Your avatar : ${interaction.user.displayAvatarURL({ format: 'png' })}`);
+    	else return await interaction.reply(`The avatar ${mention.username} is : ${mention.displayAvatarURL({ format: 'png' })}`);
+	},
+};
